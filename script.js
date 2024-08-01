@@ -1,5 +1,5 @@
 
-console.log(getComputerChoice());
+console.log(getHumanChoice());
 
 function getComputerChoice() {
     const randomNumber = Math.random();
@@ -9,5 +9,14 @@ function getComputerChoice() {
         return "paper";
     } else {
         return "scissors";
+    }
+}
+
+function getHumanChoice() {
+    while (true) {
+        const input = prompt('rock, paper, scissors ?');
+        if (input === 'rock' || input === 'paper' || input === 'scissors') {
+            return input;
+        }
     }
 }
