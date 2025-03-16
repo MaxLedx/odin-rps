@@ -1,14 +1,11 @@
-const ROCK = 'ROCK';
-const PAPER = 'PAPER';
-const SCISSORS = 'SCISSORS';
+const ROCK = 'rock';
+const PAPER = 'paper';
+const SCISSORS = 'scissors';
+const HUMAN = 'human';
+const COMPUTER = 'computer';
+const TIE = 'tie';
 
-let humanScore = 0;
-let computerScore = 0;
-
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+playGame();
 
 function getComputerChoice() {
     const random = Math.random();
@@ -22,37 +19,50 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    return prompt('ROCK, PAPER or SCISSORS ?');
+    return prompt(`${ROCK}, ${PAPER} or ${SCISSORS} ?`);
 }
 
-function playRound(humanChoice, computerChoice) {
-    const upperCaseHumanChoice = humanChoice.toUpperCase();
 
-    if (upperCaseHumanChoice == computerChoice) {
-        console.log('Tie');
-    } else if (upperCaseHumanChoice == ROCK) {
-        if (computerChoice == PAPER) {
-            computerScore++;
-            console.log(`You lose! ${computerChoice} beats ${upperCaseHumanChoice}`);
-        } else {
-            humanScore++;
-            console.log(`You win! ${upperCaseHumanChoice} beats ${computerChoice}`);
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    function playRound(humanChoice, computerChoice) {
+        const lowerCaseHumanChoice = humanChoice.toLowerCase();
+
+        if (lowerCaseHumanChoice === computerChoice) {
+            return TIE;
+        } else if (lowerCaseHumanChoice === ROCK) {
+            return computerChoice === PAPER ? COMPUTER : HUMAN;
+        } else if (lowerCaseHumanChoice === PAPER) {
+            return computerChoice === ROCK ? HUMAN : COMPUTER;
+        } else if (lowerCaseHumanChoice === SCISSORS) {
+            return computerChoice === ROCK ? COMPUTER : HUMAN;
         }
-    } else if (upperCaseHumanChoice == PAPER) {
-        if (computerChoice == ROCK) {
+    }
+
+    for (let i = 0; i < 5; i++) {
+        const humanChoice = getHumanChoice()
+        const computerChoice = getComputerChoice();
+
+        const roundWinner = playRound(humanChoice, computerChoice);
+
+        if (roundWinner === TIE) {
+            console.log('Tie!')
+        } else if (roundWinner === HUMAN) {
             humanScore++;
-            console.log(`You win! ${upperCaseHumanChoice} beats ${computerChoice}`);
+            console.log(`You win! ${humanChoice} beats ${computerChoice}`);
         } else {
             computerScore++;
-            console.log(`You lose! ${computerChoice} beats ${upperCaseHumanChoice}`);
+            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
         }
-    } else if (upperCaseHumanChoice == SCISSORS) {
-        if (computerChoice == ROCK) {
-            computerScore++;
-            console.log(`You lose! ${computerChoice} beats ${upperCaseHumanChoice}`);
-        } else {
-            humanScore++;
-            console.log(`You win! ${upperCaseHumanChoice} beats ${computerChoice}`);
-        }
+    }
+
+    if (humanScore === computerScore) {
+        console.log('Game tie!')
+    } else if (humanScore > computerScore) {
+        console.log('You win the game!');
+    } else {
+        console.log('You lose the game!');
     }
 }
