@@ -2,7 +2,7 @@ const ROCK = 'ROCK';
 const PAPER = 'PAPER';
 const SCISSORS = 'SCISSORS';
 
-console.log(getComputerChoice());
+console.log(getHumanChoice());
 
 function getComputerChoice() {
     const random = Math.random();
@@ -13,4 +13,8 @@ function getComputerChoice() {
     } else {
         return SCISSORS;
     }
+}
+
+function getHumanChoice() {
+    return prompt('ROCK, PAPER or SCISSORS ?');
 }
