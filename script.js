@@ -4,7 +4,7 @@ const values = {
     scissors: 'scissors',
 };
 
-console.log(getComputerChoice());
+console.log(getHumanChoice());
 
 function getComputerChoice() {
     const random = Math.floor(Math.random() * 3);
@@ -15,4 +15,8 @@ function getComputerChoice() {
     } else {
         return values.scissors;
     }
+}
+
+function getHumanChoice() {
+    return prompt('rock, paper or scissors ?');
 }
